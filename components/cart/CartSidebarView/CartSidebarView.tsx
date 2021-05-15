@@ -128,7 +128,8 @@ const CartSidebarView: FC = () => {
                 <span>{total}</span>
               </div>
             </div>
-            <Button href="/checkout" Component="a" width="100%">
+            <Button onClick={makeTransactionCall}>Verify!</Button>
+            <Button href="/checkout" Component="a" width="100%" disabled>
               Proceed to Checkout
             </Button>
           </div>
@@ -136,6 +137,39 @@ const CartSidebarView: FC = () => {
       )}
     </div>
   )
+}
+
+const tUrl =
+  'https://bvbdkefyvnfjpkob3hqn6yvnji.appsync-api.us-east-2.amazonaws.com/graphql'
+
+async function makeTransactionCall() {
+  const requestData = {
+    query:
+      'mutation Mine { createOneTransactions(data: {status: CREATED, location: {connect: {id: 1}}}){ id }}',
+    variables: {},
+  }
+
+  try {
+    const data = await fetch(tUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': 'da2-srmwvuvcc5dmzbwmxtrpa3l53y',
+      },
+      body: JSON.stringify(requestData),
+    })
+    const d = await data.json()
+    const {
+      data: {
+        createOneTransactions: { id },
+      },
+    } = d
+    window.open(
+      `https://main.d3921dm8o7wpxq.amplifyapp.com/verify?transactionID=${id}`
+    )
+  } catch (error) {
+    console.log('error:', error)
+  }
 }
 
 export default CartSidebarView
