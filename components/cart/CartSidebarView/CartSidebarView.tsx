@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import cn from 'classnames'
 import Link from 'next/link'
 import CartItem from '../CartItem'
@@ -13,7 +13,9 @@ import usePrice from '@framework/product/use-price'
 const CartSidebarView: FC = () => {
   const { closeSidebar } = useUI()
   const { data, isLoading, isEmpty } = useCart()
-
+  const [loading, setLoading] = useState(false)
+  const [id, setId] = useState<string | null>(null)
+  const [status, setStatus] = useState('')
   const { price: subTotal } = usePrice(
     data && {
       amount: Number(data.subtotalPrice),
@@ -27,6 +29,36 @@ const CartSidebarView: FC = () => {
     }
   )
   const handleClose = () => closeSidebar()
+
+  function mark() {
+    setLoading(true)
+    makeTransactionCall()
+      .then((id) => setId(id))
+      .finally(() => setLoading(false))
+  }
+
+  useEffect(() => {
+    if (!id) return
+    const dateNow = new Date()
+
+    let interval = setInterval(() => {
+      if (new Date().getTime() > dateNow.getTime() + 150000) {
+        clearInterval(interval)
+      }
+      getStatus(id)
+        .then(({ status }) => {
+          setStatus(status)
+          if (status === 'COMPLETED') {
+            clearInterval(interval)
+          }
+        })
+        .catch(console.log)
+    }, 5000)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [id])
 
   const error = null
   const success = null
@@ -106,7 +138,6 @@ const CartSidebarView: FC = () => {
               ))}
             </ul>
           </div>
-
           <div className="flex-shrink-0 px-4  py-5 sm:px-6">
             <div className="border-t border-accents-3">
               <ul className="py-3">
@@ -128,7 +159,14 @@ const CartSidebarView: FC = () => {
                 <span>{total}</span>
               </div>
             </div>
-            <Button onClick={makeTransactionCall}>Verify!</Button>
+            <div className="flex bg-redOpac64 justify-center pb-5 flex-col">
+              <div>
+                <span>{status}</span>
+              </div>
+              <Button onClick={mark}>
+                {loading ? '...Verifying' : 'Verify'}
+              </Button>
+            </div>
             <Button href="/checkout" Component="a" width="100%" disabled>
               Proceed to Checkout
             </Button>
@@ -165,8 +203,37 @@ async function makeTransactionCall() {
       },
     } = d
     window.open(
-      `https://main.d3921dm8o7wpxq.amplifyapp.com/verify?transactionID=${id}`
+      `https://main.d3pf4vos3xyfng.amplifyapp.com/verify?transactionID=${id}`
     )
+    return id
+  } catch (error) {
+    console.log('error:', error)
+  }
+}
+
+async function getStatus(id: string) {
+  const requestData = {
+    query: `query Temp { getTransactionStatus(transaction_id: "${id}") { created_at  isOver18   isOver21    updated_at    location {     active     address    company_id     created_at    location_type     id     display_name      primary_location    updated_at     url    }  status }}`,
+    variables: {},
+  }
+
+  try {
+    const data = await fetch(tUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': 'da2-srmwvuvcc5dmzbwmxtrpa3l53y',
+      },
+      body: JSON.stringify(requestData),
+    })
+    const d = await data.json()
+    const {
+      data: {
+        getTransactionStatus: { ...datum },
+      },
+    } = d
+
+    return datum
   } catch (error) {
     console.log('error:', error)
   }
