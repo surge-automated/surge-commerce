@@ -164,7 +164,7 @@ const CartSidebarView: FC = () => {
                 <span>{status}</span>
               </div>
               <Button onClick={mark}>
-                {loading ? '...Verifying' : 'Verify'}
+                {loading ? '...Verifying Age' : 'Verify Age'}
               </Button>
             </div>
             <Button href="/checkout" Component="a" width="100%" disabled>
@@ -203,7 +203,9 @@ async function makeTransactionCall() {
       },
     } = d
     window.open(
-      `https://main.d3pf4vos3xyfng.amplifyapp.com/verify?transactionID=${id}`
+      `https://main.d3pf4vos3xyfng.amplifyapp.com/verify?transactionID=${id}`,
+      'surge-vault',
+      'resizeable=no,toolbar=no,scrollbar=no,menubar=no,status=no,directories=no,height=200,width=200'
     )
     return id
   } catch (error) {
