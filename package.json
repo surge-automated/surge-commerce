@@ -13,9 +13,6 @@
   },
   "sideEffects": false,
   "license": "MIT",
-  "engines": {
-    "node": "14.x"
-  },
   "dependencies": {
     "@reach/portal": "^0.11.2",
     "@vercel/fetch": "^6.1.0",
