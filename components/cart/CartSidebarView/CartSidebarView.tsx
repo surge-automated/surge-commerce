@@ -203,9 +203,9 @@ async function makeTransactionCall() {
       },
     } = d
     window.open(
-      `https://main.d3pf4vos3xyfng.amplifyapp.com/verify?transactionID=${id}`,
+      `https://dev.d3i1vhe2kldtt3.amplifyapp.com/verify?transactionID=${id}`,
       'surge-vault',
-      'resizeable=no,toolbar=no,scrollbar=no,menubar=no,status=no,directories=no,height=200,width=200'
+      'resizeable=no,toolbar=no,scrollbar=no,menubar=no,status=no,directories=no,height=1000,width=800'
     )
     return id
   } catch (error) {
