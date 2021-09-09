@@ -14,6 +14,7 @@ const CartSidebarView: FC = () => {
   const { closeSidebar } = useUI()
   // const { data, isLoading, isEmpty } = useCart()
   const [loading, setLoading] = useState(false)
+  const [disableCheckout, setDisableCheckout] = useState(true)
   const [id, setId] = useState<string | null>(null)
   const [status, setStatus] = useState('')
   const handleClose = () => closeSidebar()
@@ -38,6 +39,7 @@ const CartSidebarView: FC = () => {
           setStatus(status)
           if (status === 'COMPLETED') {
             clearInterval(interval)
+            setDisableCheckout(false)
           }
         })
         .catch(console.log)
@@ -168,13 +170,22 @@ const CartSidebarView: FC = () => {
               <div>
                 <span>{status}</span>
               </div>
-              <Button onClick={mark}>
-                {loading ? '...Verifying Age' : 'Verify Age'}
-              </Button>
+              {disableCheckout && (
+                <Button onClick={mark}>
+                  {loading ? '...Verifying Age' : 'Verify Age'}
+                </Button>
+              )}
             </div>
-            <Button href="/checkout" Component="a" width="100%" disabled>
-              Proceed to Checkout
-            </Button>
+            {!disableCheckout && (
+              <Button
+                onClick={() => console.log('Checkout')}
+                Component="a"
+                width="100%"
+                disabled={disableCheckout}
+              >
+                Proceed to Checkout
+              </Button>
+            )}
           </div>
         </>
       )}
