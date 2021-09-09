@@ -1,7 +1,7 @@
 [
   {
-    "name": "Test Product",
-    "path": "/testproduct",
+    "name": "Test Product CBD",
+    "path": "/test-product-cbd",
     "brand": null,
     "description": "<p>Good</p>",
     "prices": {
@@ -11,8 +11,8 @@
     },
     "images": [
       {
-        "url": "https://cdn11.bigcommerce.com/s-vszfbr0q0h/images/stencil/original/products/112/376/cannabis__92332.1621042288.jpg",
-        "alt": "leaf",
+        "url": "https://www.openaccessgovernment.org/wp-content/uploads/2020/01/dreamstime_xxl_162739067.jpg",
+        "alt": "cbd",
         "isDefault": true
       }
     ],
@@ -20,7 +20,7 @@
     "productOptions": { "edges": [] },
     "id": "112",
     "options": [],
-    "slug": "test-product",
+    "slug": "test-product-cbd",
     "price": { "value": 0, "currencyCode": "USD" }
   }
 ]
