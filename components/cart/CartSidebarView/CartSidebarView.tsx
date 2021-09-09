@@ -12,22 +12,10 @@ import usePrice from '@framework/product/use-price'
 
 const CartSidebarView: FC = () => {
   const { closeSidebar } = useUI()
-  const { data, isLoading, isEmpty } = useCart()
+  // const { data, isLoading, isEmpty } = useCart()
   const [loading, setLoading] = useState(false)
   const [id, setId] = useState<string | null>(null)
   const [status, setStatus] = useState('')
-  const { price: subTotal } = usePrice(
-    data && {
-      amount: Number(data.subtotalPrice),
-      currencyCode: data.currency.code,
-    }
-  )
-  const { price: total } = usePrice(
-    data && {
-      amount: Number(data.totalPrice),
-      currencyCode: data.currency.code,
-    }
-  )
   const handleClose = () => closeSidebar()
 
   function mark() {
@@ -66,7 +54,7 @@ const CartSidebarView: FC = () => {
   return (
     <div
       className={cn(s.root, {
-        [s.empty]: error || success || isLoading || isEmpty,
+        [s.empty]: error || success || false || false,
       })}
     >
       <header className="px-4 pt-6 pb-4 sm:px-6">
@@ -86,7 +74,7 @@ const CartSidebarView: FC = () => {
         </div>
       </header>
 
-      {isLoading || isEmpty ? (
+      {false || false ? (
         <div className="flex-1 px-4 flex flex-col justify-center items-center">
           <span className="border border-dashed border-primary rounded-full flex items-center justify-center w-16 h-16 p-12 bg-secondary text-secondary">
             <Bag className="absolute" />
@@ -129,13 +117,30 @@ const CartSidebarView: FC = () => {
               </h2>
             </Link>
             <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accents-3 border-t border-accents-3">
-              {data!.lineItems.map((item: any) => (
-                <CartItem
-                  key={item.id}
-                  item={item}
-                  currencyCode={data!.currency.code}
-                />
-              ))}
+              {/* {data!.lineItems.map((item: any) => ( */}
+              <CartItem
+                key={'1'}
+                item={{
+                  id: '1',
+                  name: 'Test Product',
+                  quantity: 1,
+                  path: '1',
+                  productId: '123',
+                  variantId: '1',
+                  discounts: [{ value: 0 }],
+                  variant: {
+                    price: 109,
+                    name: 'Test Product',
+                    id: '1',
+                    listPrice: 50,
+                    requiresShipping: false,
+                    sku: '123',
+                    availableForSale: true,
+                  },
+                }}
+                currencyCode={'$'}
+              />
+              {/* ))} */}
             </ul>
           </div>
           <div className="flex-shrink-0 px-4  py-5 sm:px-6">
@@ -143,7 +148,7 @@ const CartSidebarView: FC = () => {
               <ul className="py-3">
                 <li className="flex justify-between py-1">
                   <span>Subtotal</span>
-                  <span>{subTotal}</span>
+                  <span className="font-bold">FREE</span>
                 </li>
                 <li className="flex justify-between py-1">
                   <span>Taxes</span>
@@ -156,7 +161,7 @@ const CartSidebarView: FC = () => {
               </ul>
               <div className="flex justify-between border-t border-accents-3 py-3 font-bold mb-10">
                 <span>Total</span>
-                <span>{total}</span>
+                <span>FREE</span>
               </div>
             </div>
             <div className="flex bg-redOpac64 justify-center pb-5 flex-col">
@@ -203,7 +208,7 @@ async function makeTransactionCall() {
       },
     } = d
     window.open(
-      `https://main.d3pf4vos3xyfng.amplifyapp.com/verify?transactionID=${id}`,
+      `http://localhost:3000/verify?transactionID=${id}`,
       'surge-vault',
       'resizeable=no,toolbar=no,scrollbar=no,menubar=no,status=no,directories=no,height=200,width=200'
     )

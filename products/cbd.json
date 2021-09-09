@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Test Product",
+    "path": "/testproduct",
+    "brand": null,
+    "description": "<p>Good</p>",
+    "prices": {
+      "price": { "value": 0, "currencyCode": "USD" },
+      "salePrice": null,
+      "retailPrice": null
+    },
+    "images": [
+      {
+        "url": "https://cdn11.bigcommerce.com/s-vszfbr0q0h/images/stencil/original/products/112/376/cannabis__92332.1621042288.jpg",
+        "alt": "leaf",
+        "isDefault": true
+      }
+    ],
+    "variants": [{ "id": 77, "options": [], "defaultImage": null }],
+    "productOptions": { "edges": [] },
+    "id": "112",
+    "options": [],
+    "slug": "test-product",
+    "price": { "value": 0, "currencyCode": "USD" }
+  }
+]

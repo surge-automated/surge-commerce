@@ -1,0 +1,33 @@
+{
+  "id": "87ae6d53-517f-4838-87e0-96046457256f",
+  "customerId": "0",
+  "email": "",
+  "createdAt": "2021-08-02T22:11:43+00:00",
+  "currency": { "code": "USD" },
+  "taxesIncluded": false,
+  "lineItems": [
+    {
+      "id": "07c9c12e-15bf-4f4e-9551-1d9e94ac37a8",
+      "variantId": "77",
+      "productId": "112",
+      "name": "Black Hat",
+      "quantity": 5,
+      "variant": {
+        "id": "77",
+        "sku": "WD-123",
+        "name": "Black Hat",
+        "image": {
+          "url": "https://cdn11.bigcommerce.com/s-vszfbr0q0h/products/112/images/376/cannabis__92332.1621042288.220.290.jpg?c=1"
+        },
+        "requiresShipping": true,
+        "price": 0,
+        "listPrice": 0
+      },
+      "path": "next-js-enamel-mug",
+      "discounts": []
+    }
+  ],
+  "lineItemsSubtotalPrice": 0,
+  "subtotalPrice": 0,
+  "totalPrice": 0
+}

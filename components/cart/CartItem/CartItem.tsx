@@ -6,9 +6,6 @@ import s from './CartItem.module.css'
 import { Trash, Plus, Minus } from '@components/icons'
 import { useUI } from '@components/ui/context'
 import type { LineItem } from '@framework/types'
-import usePrice from '@framework/product/use-price'
-import useUpdateItem from '@framework/cart/use-update-item'
-import useRemoveItem from '@framework/cart/use-remove-item'
 
 type ItemOption = {
   name: string
@@ -26,56 +23,9 @@ const CartItem = ({
   currencyCode: string
 }) => {
   const { closeSidebarIfPresent } = useUI()
-
-  const { price } = usePrice({
-    amount: item.variant.price * item.quantity,
-    baseAmount: item.variant.listPrice * item.quantity,
-    currencyCode,
-  })
-
-  const updateItem = useUpdateItem({ item })
-  const removeItem = useRemoveItem()
   const [quantity, setQuantity] = useState(item.quantity)
   const [removing, setRemoving] = useState(false)
 
-  const updateQuantity = async (val: number) => {
-    await updateItem({ quantity: val })
-  }
-
-  const handleQuantity = (e: ChangeEvent<HTMLInputElement>) => {
-    const val = Number(e.target.value)
-
-    if (Number.isInteger(val) && val >= 0) {
-      setQuantity(Number(e.target.value))
-    }
-  }
-  const handleBlur = () => {
-    const val = Number(quantity)
-
-    if (val !== item.quantity) {
-      updateQuantity(val)
-    }
-  }
-  const increaseQuantity = (n = 1) => {
-    const val = Number(quantity) + n
-
-    if (Number.isInteger(val) && val >= 0) {
-      setQuantity(val)
-      updateQuantity(val)
-    }
-  }
-  const handleRemove = async () => {
-    setRemoving(true)
-
-    try {
-      // If this action succeeds then there's no need to do `setRemoving(true)`
-      // because the component will be removed from the view
-      await removeItem(item)
-    } catch (error) {
-      setRemoving(false)
-    }
-  }
-  // TODO: Add a type for this
   const options = (item as any).options
 
   useEffect(() => {
@@ -93,20 +43,22 @@ const CartItem = ({
       {...rest}
     >
       <div className="w-16 h-16 bg-violet relative overflow-hidden cursor-pointer">
-        <Link href={`/product/${item.path}`}>
+        <Link href={`/product/test`}>
           <Image
             onClick={() => closeSidebarIfPresent()}
             className={s.productImage}
             width={150}
             height={150}
-            src={item.variant.image!.url}
-            alt={item.variant.image!.altText}
+            src={
+              'https://cdn11.bigcommerce.com/s-vszfbr0q0h/products/112/images/376/cannabis__92332.1621042288.220.290.jpg?c=1'
+            }
+            alt={'item.variant.image!.altText'}
             unoptimized
           />
         </Link>
       </div>
       <div className="flex-1 flex flex-col text-base">
-        <Link href={`/product/${item.path}`}>
+        <Link href={`/product/test}`}>
           <span
             className="font-bold text-lg cursor-pointer leading-6"
             onClick={() => closeSidebarIfPresent()}
@@ -128,7 +80,7 @@ const CartItem = ({
           </div>
         ) : null}
         <div className="flex items-center mt-3">
-          <button type="button" onClick={() => increaseQuantity(-1)}>
+          <button type="button" onClick={() => console.log('decrease')}>
             <Minus width={18} height={18} />
           </button>
           <label>
@@ -138,20 +90,20 @@ const CartItem = ({
               min={0}
               className={s.quantity}
               value={quantity}
-              onChange={handleQuantity}
-              onBlur={handleBlur}
+              // onChange={handleQuantity}
+              // onBlur={handleBlur}
             />
           </label>
-          <button type="button" onClick={() => increaseQuantity(1)}>
+          <button type="button" onClick={() => console.log('increase')}>
             <Plus width={18} height={18} />
           </button>
         </div>
       </div>
       <div className="flex flex-col justify-between space-y-2 text-base">
-        <span>{price}</span>
+        <span>{item?.variant?.price}</span>
         <button
           className="flex justify-end outline-none"
-          onClick={handleRemove}
+          onClick={() => console.log('Remove')}
         >
           <Trash />
         </button>

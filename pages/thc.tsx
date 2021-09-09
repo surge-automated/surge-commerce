@@ -4,8 +4,22 @@ import { ProductCard } from '@components/product'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
 import thc from '../products/thc.json'
-export default function Home() {
+
+export async function getStaticProps({
+  preview,
+  locale,
+}: GetStaticPropsContext) {
   const products = thc
+  return {
+    props: {
+      products,
+    },
+    revalidate: 14400,
+  }
+}
+export default function Thc({
+  products,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
       <Grid>
@@ -37,4 +51,4 @@ export default function Home() {
   )
 }
 
-Home.Layout = Layout
+Thc.Layout = Layout
