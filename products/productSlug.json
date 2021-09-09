@@ -1,5 +1,5 @@
 {
-  "next-js-enamel-mug": {
+  "test-product-thc": {
     "__typename": "Product",
     "name": "Test Product THC",
     "path": "/test-product-thc/",
@@ -34,9 +34,9 @@
     "id": "112",
     "options": [],
     "slug": "test-product-thc",
-    "price": { "value": 0, "currencyCode": "USD" }
+    "price": { "value": 10, "currencyCode": "USD" }
   },
-  "test-product": {
+  "test-product-cbd": {
     "__typename": "Product",
     "name": "Test Product CBD",
     "path": "/test-product-cbd/",
@@ -108,6 +108,6 @@
     "id": "112",
     "options": [],
     "slug": "test-product-alc",
-    "price": { "value": 0, "currencyCode": "USD" }
+    "price": { "value": 10, "currencyCode": "USD" }
   }
 }
