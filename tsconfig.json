@@ -32,7 +32,8 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.js",
-    "pages/product/[slug].jsx"
+    "pages/product/[slug].jsx",
+    "components/cart/CartSidebarView/CartSidebarView.jsx"
   ],
   "exclude": ["node_modules"]
 }

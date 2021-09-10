@@ -7,16 +7,14 @@ import { Button } from '@components/ui'
 import { UserNav } from '@components/common'
 import { useUI } from '@components/ui/context'
 import { Bag, Cross, Check } from '@components/icons'
-import useCart from '@framework/cart/use-cart'
-import usePrice from '@framework/product/use-price'
-import productSlug from '../../../products/productSlug'
+import productSlug from '../../../products/productSlug.json'
 import router from 'next/router'
-const CartSidebarView: FC = () => {
+
+const CartSidebarView = () => {
   const { closeSidebar } = useUI()
-  // const { data, isLoading, isEmpty } = useCart()
   const [loading, setLoading] = useState(false)
   const [disableCheckout, setDisableCheckout] = useState(true)
-  const [id, setId] = useState<string | null>(null)
+  const [id, setId] = useState(null)
   const [status, setStatus] = useState('')
   const handleClose = () => closeSidebar()
   const product = productSlug[router?.query?.slug]
@@ -232,7 +230,7 @@ async function makeTransactionCall() {
   }
 }
 
-async function getStatus(id: string) {
+async function getStatus(id) {
   const requestData = {
     query: `query Temp { getTransactionStatus(transaction_id: "${id}") { created_at  isOver18   isOver21    updated_at    location {     active     address    company_id     created_at    location_type     id     display_name      primary_location    updated_at     url    }  status }}`,
     variables: {},
