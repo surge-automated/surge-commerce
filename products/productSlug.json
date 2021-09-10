@@ -1,8 +1,8 @@
 {
-  "next-js-enamel-mug": {
+  "test-product-thc": {
     "__typename": "Product",
-    "name": "Black Hat",
-    "path": "/next-js-enamel-mug/",
+    "name": "Test Product THC",
+    "path": "/test-product-thc/",
     "brand": null,
     "description": "<p>Good</p>",
     "prices": {
@@ -12,7 +12,7 @@
     },
     "images": [
       {
-        "url": "https://cdn11.bigcommerce.com/s-vszfbr0q0h/images/stencil/original/products/112/376/cannabis__92332.1621042288.jpg",
+        "url": "https://hips.hearstapps.com/amv-prod-gp.s3.amazonaws.com/gearpatrol/wp-content/uploads/2020/04/Weed-Terms-Gear-Patrol-Lead-Full.jpg",
         "alt": "leaf",
         "isDefault": true
       }
@@ -33,13 +33,13 @@
     "productOptions": { "edges": [] },
     "id": "112",
     "options": [],
-    "slug": "next-js-enamel-mug",
-    "price": { "value": 0, "currencyCode": "USD" }
+    "slug": "test-product-thc",
+    "price": { "value": 10, "currencyCode": "USD" }
   },
-  "test-product": {
+  "test-product-cbd": {
     "__typename": "Product",
-    "name": "Test Product",
-    "path": "/test-product/",
+    "name": "Test Product CBD",
+    "path": "/test-product-cbd/",
     "brand": null,
     "description": "<p>Good</p>",
     "prices": {
@@ -49,8 +49,8 @@
     },
     "images": [
       {
-        "url": "https://cdn11.bigcommerce.com/s-vszfbr0q0h/images/stencil/original/products/112/376/cannabis__92332.1621042288.jpg",
-        "alt": "leaf",
+        "url": "https://www.openaccessgovernment.org/wp-content/uploads/2020/01/dreamstime_xxl_162739067.jpg",
+        "alt": "cbd",
         "isDefault": true
       }
     ],
@@ -70,12 +70,12 @@
     "productOptions": { "edges": [] },
     "id": "112",
     "options": [],
-    "slug": "test-product",
+    "slug": "test-product0cbd",
     "price": { "value": 0, "currencyCode": "USD" }
   },
   "test-product-alc": {
     "__typename": "Product",
-    "name": "Test Product",
+    "name": "Test Product Alcohol",
     "path": "/test-product-alc/",
     "brand": null,
     "description": "<p>Good</p>",
@@ -86,8 +86,8 @@
     },
     "images": [
       {
-        "url": "https://cdn11.bigcommerce.com/s-vszfbr0q0h/images/stencil/original/products/112/376/cannabis__92332.1621042288.jpg",
-        "alt": "leaf",
+        "url": "https://i0.wp.com/post.healthline.com/wp-content/uploads/2020/10/beer-glass-bar-1296x728-header.jpg",
+        "alt": "beer",
         "isDefault": true
       }
     ],
@@ -108,6 +108,6 @@
     "id": "112",
     "options": [],
     "slug": "test-product-alc",
-    "price": { "value": 0, "currencyCode": "USD" }
+    "price": { "value": 10, "currencyCode": "USD" }
   }
 }

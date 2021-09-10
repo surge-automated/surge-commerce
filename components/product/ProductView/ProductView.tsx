@@ -18,6 +18,7 @@ interface Props {
 }
 
 const ProductView: FC<Props> = ({ product }) => {
+  console.log(product, 'product')
   const { openSidebar } = useUI()
   const [loading, setLoading] = useState(false)
 
@@ -30,32 +31,14 @@ const ProductView: FC<Props> = ({ product }) => {
       setLoading(false)
     }
   }
-
   return (
     <Container className="max-w-none w-full" clean>
-      {/* <NextSeo
-        title={product?.name}
-        description={product?.description}
-        openGraph={{
-          type: 'website',
-          title: product?.name,
-          description: product?.description,
-          images: [
-            {
-              url: product?.images[0]?.url!,
-              width: 800,
-              height: 600,
-              alt: product?.name,
-            },
-          ],
-        }}
-      /> */}
       <div className={cn(s.root, 'fit')}>
         <div className={cn(s.productDisplay, 'fit')}>
           <div className={s.nameBox}>
             <h1 className={s.name}>{product?.name}</h1>
             <div className={s.price}>
-              10
+              {product?.price?.value}
               {` `}
               {product?.price?.currencyCode}
             </div>
@@ -64,10 +47,10 @@ const ProductView: FC<Props> = ({ product }) => {
           <div className={s.sliderContainer}>
             <ProductSlider key={product?.id}>
               {product?.images.map((image, i) => (
-                <div key={image.url} className={s.imageContainer}>
+                <div key={1} className={s.imageContainer}>
                   <Image
                     className={s.img}
-                    src={image.url!}
+                    src={product?.images[0]?.url}
                     alt={image.alt || 'Product Image'}
                     width={1050}
                     height={1050}

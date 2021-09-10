@@ -9,7 +9,8 @@ import { useUI } from '@components/ui/context'
 import { Bag, Cross, Check } from '@components/icons'
 import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/product/use-price'
-
+import productSlug from '../../../products/productSlug'
+import router from 'next/router'
 const CartSidebarView: FC = () => {
   const { closeSidebar } = useUI()
   // const { data, isLoading, isEmpty } = useCart()
@@ -18,6 +19,7 @@ const CartSidebarView: FC = () => {
   const [id, setId] = useState<string | null>(null)
   const [status, setStatus] = useState('')
   const handleClose = () => closeSidebar()
+  const product = productSlug[router?.query?.slug]
 
   function mark() {
     setLoading(true)
@@ -124,14 +126,14 @@ const CartSidebarView: FC = () => {
                 key={'1'}
                 item={{
                   id: '1',
-                  name: 'Test Product',
+                  name: product?.name,
                   quantity: 1,
                   path: '1',
                   productId: '123',
                   variantId: '1',
                   discounts: [{ value: 0 }],
                   variant: {
-                    price: 109,
+                    price: product?.price?.value,
                     name: 'Test Product',
                     id: '1',
                     listPrice: 50,
@@ -141,6 +143,7 @@ const CartSidebarView: FC = () => {
                   },
                 }}
                 currencyCode={'$'}
+                image={product?.images[0]?.url}
               />
               {/* ))} */}
             </ul>
@@ -219,7 +222,7 @@ async function makeTransactionCall() {
       },
     } = d
     window.open(
-      `https://dev.d3i1vhe2kldtt3.amplifyapp.com/verify?transactionID=${id}`,
+      `https://main.d3pf4vos3xyfng.amplifyapp.com/verify?transactionID=${id}`,
       'surge-vault',
       'resizeable=no,toolbar=no,scrollbar=no,menubar=no,status=no,directories=no,height=1000,width=800'
     )

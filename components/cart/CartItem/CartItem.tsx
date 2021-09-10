@@ -17,10 +17,12 @@ type ItemOption = {
 const CartItem = ({
   item,
   currencyCode,
+  image,
   ...rest
 }: {
   item: LineItem
   currencyCode: string
+  image: string
 }) => {
   const { closeSidebarIfPresent } = useUI()
   const [quantity, setQuantity] = useState(item.quantity)
@@ -49,9 +51,7 @@ const CartItem = ({
             className={s.productImage}
             width={150}
             height={150}
-            src={
-              'https://cdn11.bigcommerce.com/s-vszfbr0q0h/products/112/images/376/cannabis__92332.1621042288.220.290.jpg?c=1'
-            }
+            src={image! || ''}
             alt={'item.variant.image!.altText'}
             unoptimized
           />
