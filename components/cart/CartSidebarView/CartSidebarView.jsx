@@ -15,7 +15,11 @@ const CartSidebarView = () => {
   const [loading, setLoading] = useState(false)
   const [disableCheckout, setDisableCheckout] = useState(true)
   const [id, setId] = useState(null)
-  const [status, setStatus] = useState((<span>Clicking "Verify Age" will launch a new window</span>))
+  const [status, setStatus] = useState(
+    <p className="text-center text-green-700 font-bold">
+      Clicking "Verify Age" will launch a new window
+    </p>
+  )
   const handleClose = () => closeSidebar()
   const product = productSlug[router?.query?.slug]
 
@@ -37,12 +41,20 @@ const CartSidebarView = () => {
       getStatus(id)
         .then(({ status }) => {
           if (status === 'COMPLETED') {
-            setStatus((<span style={{ color: 'green'}}>Age successfully verified</span>))
+            setStatus(
+              <p className="text-center font-bold text-green">
+                Age successfully verified
+              </p>
+            )
             clearInterval(interval)
             setDisableCheckout(false)
           }
           if (status === 'FAILED') {
-            setStatus((<span style={{ color: 'red'}}>Age verification failed</span>))
+            setStatus(
+              <p className="text-center font-bold text-red">
+                Age verification failed
+              </p>
+            )
             clearInterval(interval)
           }
         })
@@ -172,25 +184,21 @@ const CartSidebarView = () => {
               </div>
             </div>
             <div className="flex bg-redOpac64 justify-center pb-5 flex-col">
-              <div>
-                {status}
-              </div>
+              <div>{status}</div>
               {disableCheckout && (
-                <Button onClick={mark}>
+                <Button disabled={loading} onClick={mark}>
                   {loading ? '...Verifying Age' : 'Verify Age'}
                 </Button>
               )}
+              {!disableCheckout && (
+                <Button
+                  onClick={() => console.log('Checkout')}
+                  disabled={disableCheckout}
+                >
+                  Proceed to Checkout
+                </Button>
+              )}
             </div>
-            {!disableCheckout && (
-              <Button
-                onClick={() => console.log('Checkout')}
-                Component="a"
-                width="100%"
-                disabled={disableCheckout}
-              >
-                Proceed to Checkout
-              </Button>
-            )}
           </div>
         </>
       )}
