@@ -49,7 +49,7 @@ const CartSidebarView = () => {
             clearInterval(interval)
             setDisableCheckout(false)
           }
-          if (status === 'FAILED') {
+          if (['FAILED', 'CANCELED', 'EXPIRED'].includes(status)) {
             setStatus(
               <p className="text-center font-bold text-red">
                 Age verification failed
