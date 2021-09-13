@@ -7,6 +7,7 @@ import { Button } from '@components/ui'
 import { UserNav } from '@components/common'
 import { useUI } from '@components/ui/context'
 import { Bag, Cross, Check } from '@components/icons'
+import { CheckCircleIcon, ExclamationCircleIcon } from '@heroicons/react/solid'
 import productSlug from '../../../products/productSlug.json'
 import router from 'next/router'
 
@@ -16,9 +17,12 @@ const CartSidebarView = () => {
   const [disableCheckout, setDisableCheckout] = useState(true)
   const [id, setId] = useState(null)
   const [status, setStatus] = useState(
-    <p className="text-center font-bold">
-      Clicking "Verify Age" will launch a new window
-    </p>
+    <div>
+      <CheckCircleIcon className="h-5 w-5 text-green" />
+      <div className="text-center font-bold">
+        Clicking "Verify Age" will launch a new window
+      </div>
+    </div>
   )
   const handleClose = () => closeSidebar()
   const product = productSlug[router?.query?.slug]
@@ -42,18 +46,24 @@ const CartSidebarView = () => {
         .then(({ status }) => {
           if (status === 'COMPLETED') {
             setStatus(
-              <p className="text-center font-bold text-green">
-                Age successfully verified
-              </p>
+              <div>
+                <CheckCircleIcon className="h-5 w-5 text-green" />
+                <p className="text-center font-bold text-green">
+                  Age successfully verified
+                </p>
+              </div>
             )
             clearInterval(interval)
             setDisableCheckout(false)
           }
           if (['FAILED', 'CANCELED', 'EXPIRED'].includes(status)) {
             setStatus(
-              <p className="text-center font-bold text-red">
-                Age verification failed
-              </p>
+              <div>
+                <ExclamationCircleIcon className="h-5 w-5 text-red" />
+                <p className="text-center font-bold text-red">
+                  Age verification failed
+                </p>
+              </div>
             )
             clearInterval(interval)
           }

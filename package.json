@@ -14,6 +14,7 @@
   "sideEffects": false,
   "license": "MIT",
   "dependencies": {
+    "@heroicons/react": "^1.0.4",
     "@reach/portal": "^0.11.2",
     "@vercel/fetch": "^6.1.0",
     "autoprefixer": "^10.2.4",
