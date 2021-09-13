@@ -15,7 +15,7 @@ const CartSidebarView = () => {
   const [loading, setLoading] = useState(false)
   const [disableCheckout, setDisableCheckout] = useState(true)
   const [id, setId] = useState(null)
-  const [status, setStatus] = useState('')
+  const [status, setStatus] = useState((<span>Clicking "Verify Age" will launch a new window</span>))
   const handleClose = () => closeSidebar()
   const product = productSlug[router?.query?.slug]
 
@@ -36,10 +36,14 @@ const CartSidebarView = () => {
       }
       getStatus(id)
         .then(({ status }) => {
-          setStatus(status)
           if (status === 'COMPLETED') {
+            setStatus((<span style={{ color: 'green'}}>Age successfully verified</span>))
             clearInterval(interval)
             setDisableCheckout(false)
+          }
+          if (status === 'FAILED') {
+            setStatus((<span style={{ color: 'red'}}>Age verification failed</span>))
+            clearInterval(interval)
           }
         })
         .catch(console.log)
@@ -169,7 +173,7 @@ const CartSidebarView = () => {
             </div>
             <div className="flex bg-redOpac64 justify-center pb-5 flex-col">
               <div>
-                <span>{status}</span>
+                {status}
               </div>
               {disableCheckout && (
                 <Button onClick={mark}>
