@@ -16,7 +16,7 @@ const CartSidebarView = () => {
   const [disableCheckout, setDisableCheckout] = useState(true)
   const [id, setId] = useState(null)
   const [status, setStatus] = useState(
-    <p className="text-center text-green-700 font-bold">
+    <p className="text-center font-bold">
       Clicking "Verify Age" will launch a new window
     </p>
   )
