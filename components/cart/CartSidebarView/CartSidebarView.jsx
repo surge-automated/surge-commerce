@@ -9,6 +9,11 @@ import { useUI } from '@components/ui/context'
 import { Bag, Cross, Check } from '@components/icons'
 import productSlug from '../../../products/productSlug.json'
 import router from 'next/router'
+import {
+  ExclamationIcon,
+  CheckCircleIcon,
+  XCircleIcon,
+} from '@heroicons/react/solid'
 
 const CartSidebarView = () => {
   const { closeSidebar } = useUI()
@@ -168,9 +173,61 @@ const CartSidebarView = () => {
               </div>
             </div>
             <div className="flex bg-redOpac64 justify-center pb-5 flex-col">
-              <div>
-                <span>{status}</span>
-              </div>
+              {status === 'IN_PROGRESS' && (
+                <div className="rounded-md bg-yellow-50 p-4">
+                  <div className="flex">
+                    <div className="flex-shrink-0">
+                      <ExclamationIcon
+                        className="h-5 w-5 text-yellow-400"
+                        aria-hidden="true"
+                      />
+                    </div>
+                    <div className="ml-3">
+                      <h3 className="text-sm font-medium text-yellow-800">
+                        Verification in progress. Please finish in the pop-up
+                        window.
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {status === 'COMPLETED' && (
+                <div className="rounded-md  bg-green-50 p-4">
+                  <div className="flex">
+                    <div className="flex-shrink-0">
+                      <CheckCircleIcon
+                        className="h-5 w-5 text-green-400"
+                        aria-hidden="true"
+                      />
+                    </div>
+                    <div className="ml-3">
+                      <h3 className="text-sm font-medium text-green-800">
+                        You've succesfully verified! You may now finish your
+                        transaction.
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {status !== 'COMPLETED' ||
+                (status !== 'IN_PROGRESS' && (
+                  <div className="rounded-md  bg-red-50 p-4">
+                    <div className="flex">
+                      <div className="flex-shrink-0">
+                        <XCircleIcon
+                          className="h-5 w-5 text-red-400"
+                          aria-hidden="true"
+                        />
+                      </div>
+                      <div className="ml-3">
+                        <h3 className="text-sm font-medium text-red-800">
+                          We were unable to process your age verification.
+                          Please try again.
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               {disableCheckout && (
                 <Button onClick={mark}>
                   {loading ? '...Verifying Age' : 'Verify Age'}
