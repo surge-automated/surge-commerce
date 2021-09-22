@@ -225,7 +225,7 @@ const CartSidebarView = () => {
                 </div>
               )}
               {disableCheckout && (
-                <Button onClick={mark}>
+                <Button disabled={loading} onClick={mark}>
                   {loading ? '...Verifying Age' : 'Verify Age'}
                 </Button>
               )}
