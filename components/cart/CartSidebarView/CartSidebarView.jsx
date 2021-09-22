@@ -184,50 +184,46 @@ const CartSidebarView = () => {
                     </div>
                     <div className="ml-3">
                       <h3 className="text-sm font-medium text-yellow-800">
-                        Verification in progress. Please finish in the pop-up
-                        window.
+                        Age Verification in progress.
                       </h3>
                     </div>
                   </div>
                 </div>
               )}
               {status === 'COMPLETED' && (
-                <div className="rounded-md  bg-green-50 p-4">
+                <div className="rounded-md bg-green-50 p-4">
                   <div className="flex">
                     <div className="flex-shrink-0">
                       <CheckCircleIcon
-                        className="h-5 w-5 text-green-400"
+                        className="h-5 w-5 text-green"
                         aria-hidden="true"
                       />
                     </div>
                     <div className="ml-3">
-                      <h3 className="text-sm font-medium text-green-800">
-                        You've succesfully verified! You may now finish your
-                        transaction.
+                      <h3 className="text-sm font-medium text-green">
+                        Age successfully verified. Proceed to checkout.
                       </h3>
                     </div>
                   </div>
                 </div>
               )}
-              {status !== 'COMPLETED' ||
-                (status !== 'IN_PROGRESS' && (
-                  <div className="rounded-md  bg-red-50 p-4">
-                    <div className="flex">
-                      <div className="flex-shrink-0">
-                        <XCircleIcon
-                          className="h-5 w-5 text-red-400"
-                          aria-hidden="true"
-                        />
-                      </div>
-                      <div className="ml-3">
-                        <h3 className="text-sm font-medium text-red-800">
-                          We were unable to process your age verification.
-                          Please try again.
-                        </h3>
-                      </div>
+              {['FAILED', 'CANCELED', 'EXPIRED'].includes(status) && (
+                <div className="rounded-md bg-red-100 p-4">
+                  <div className="flex">
+                    <div className="flex-shrink-0">
+                      <XCircleIcon
+                        className="h-5 w-5 text-red-400"
+                        aria-hidden="true"
+                      />
+                    </div>
+                    <div className="ml-3">
+                      <h3 className="text-sm font-medium text-red-800">
+                        Age verification failed.
+                      </h3>
                     </div>
                   </div>
-                ))}
+                </div>
+              )}
               {disableCheckout && (
                 <Button onClick={mark}>
                   {loading ? '...Verifying Age' : 'Verify Age'}
